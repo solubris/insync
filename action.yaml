@@ -1,7 +1,7 @@
 branding:
   icon: activity
   color: gray-dark
-name: 'InSync'
+name: 'KeepInSync'
 description: 'Keep files in-sync between repositories'
 inputs:
 #  git-author-email:
