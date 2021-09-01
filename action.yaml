@@ -1,0 +1,48 @@
+branding:
+  icon: activity
+  color: gray-dark
+name: 'InSync'
+description: 'Keep files in-sync between repositories'
+inputs:
+#  git-author-email:
+#    description: 'The email of the committer.'
+#    required: true
+#  git-author-name:
+#    description: 'The name of the committer.'
+#    required: true
+  dest-repository:
+    description: 'The GitHub repository where changes will be pushed to'
+    required: true
+#  allow-files-pattern:
+#    description: 'The regex pattern for files that allowed to update. By default all files.'
+#    default: '.*'
+#  sync-branch-name:
+#    descripion: 'The branch of the source repository to sync. By default master.'
+#    default: 'main'
+#  working-directory:
+#    descripion: 'The working working-directory.'
+#    default: ''
+#  result-branch-name:
+#    descripion: 'The name of the branch that will be created on the action done.'
+#    default: sync/${{ github.repository }}
+#  exclude-files:
+#    default: ''
+#    description: 'Space-separated paths of files that should be excluded from sync.'
+#  sync-ignore-file-name:
+#    default: '.syncignore'
+#    description: 'The path to file in the destination repository that contains space-separated paths to files that should be excluded from sync.'
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/sync.sh
+      env:
+#        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
+        SYNC_REPOSITORY: ${{ inputs.sync-repository }}
+#        AUTHOR_EMAIL: ${{ inputs.git-author-email }}
+#        AUTHOR_NAME: ${{ inputs.git-author-name }}
+#        REGEX: ${{ inputs.allow-files-pattern }}
+#        EXCLUDE_FILES: ${{ inputs.exclude-files }}
+#        WORKING_DIRECTORY: ${{ inputs.working-directory }}
+#        SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
+#        RESULT_BRANCH_NAME: ${{ inputs.result-branch-name }}
+      shell: bash
