@@ -13,6 +13,9 @@ inputs:
   dst-repository:
     description: 'The GitHub repository where changes will be pushed to'
     required: true
+  files:
+    description: 'The files to keep in sync'
+    required: true
 #  allow-files-pattern:
 #    description: 'The regex pattern for files that allowed to update. By default all files.'
 #    default: '.*'
@@ -34,10 +37,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/sync.sh
-      env:
+    - run: ${{ github.action_path }}/sync.sh ${{ inputs.dst-repository }} ${{ inputs.files }}
+#      env:
 #        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
-        SYNC_REPOSITORY: ${{ inputs.dst-repository }}
+#        SYNC_REPOSITORY: ${{ inputs.dst-repository }}
 #        AUTHOR_EMAIL: ${{ inputs.git-author-email }}
 #        AUTHOR_NAME: ${{ inputs.git-author-name }}
 #        REGEX: ${{ inputs.allow-files-pattern }}
