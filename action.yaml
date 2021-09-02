@@ -10,7 +10,7 @@ inputs:
 #  git-author-name:
 #    description: 'The name of the committer.'
 #    required: true
-  dest-repository:
+  dst-repository:
     description: 'The GitHub repository where changes will be pushed to'
     required: true
 #  allow-files-pattern:
@@ -37,7 +37,7 @@ runs:
     - run: ${{ github.action_path }}/sync.sh
       env:
 #        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
-        SYNC_REPOSITORY: ${{ inputs.sync-repository }}
+        SYNC_REPOSITORY: ${{ inputs.dst-repository }}
 #        AUTHOR_EMAIL: ${{ inputs.git-author-email }}
 #        AUTHOR_NAME: ${{ inputs.git-author-name }}
 #        REGEX: ${{ inputs.allow-files-pattern }}
