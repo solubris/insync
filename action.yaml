@@ -44,7 +44,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/sync.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} ${{ inputs.files }}
+    - run: ${{ github.action_path }}/sync.sh "${{ inputs.dst-owner }}" "${{ inputs.dst-repository }}" "${{ inputs.dst-token }}" "${{ inputs.files }}"
 #      env:
 #        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
 #        SYNC_REPOSITORY: ${{ inputs.dst-repository }}
