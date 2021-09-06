@@ -10,6 +10,10 @@ inputs:
 #  git-author-name:
 #    description: 'The name of the committer.'
 #    required: true
+  dst-owner:
+    description: 'The GitHub repository owner where changes will be pushed to (defaults to same owner)'
+    required: false
+    default: ${{ github.repository_owner }}
   dst-repository:
     description: 'The GitHub repository where changes will be pushed to'
     required: true
@@ -37,7 +41,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/sync.sh ${{ inputs.dst-repository }} ${{ inputs.files }}
+    - run: ${{ github.action_path }}/sync.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.files }}
 #      env:
 #        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
 #        SYNC_REPOSITORY: ${{ inputs.dst-repository }}

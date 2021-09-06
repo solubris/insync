@@ -3,10 +3,11 @@
 SCRIPT_PATH=$(dirname "$0")
 
 
-dstRepository="$1"
-files="$2"
+dstOwner="$1"
+dstRepository="$2"
+files="$3"
 
-echo "syncing $files to $dstRepository"
+echo "syncing $files to $dstOwner/$dstRepository"
 pwd
 set
 
@@ -17,7 +18,7 @@ set
 # can be controlled by the job setup
 
 # check out dst project to tmp dir
-"$SCRIPT_PATH"/checkout.sh 'solubris' $dstRepository
+"$SCRIPT_PATH"/checkout.sh $dstOwner $dstRepository
 
 
 
