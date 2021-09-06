@@ -23,7 +23,7 @@ pwd
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$GITHUB_TOKEN"
+"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken"
 cd -
 
 # check out dst project to tmp dir
