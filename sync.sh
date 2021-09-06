@@ -5,7 +5,8 @@ SCRIPT_PATH=$(dirname "$0")
 
 dstOwner="$1"
 dstRepository="$2"
-files="$3"
+dstToken="$3"
+files="$4"
 
 echo "syncing $files to $dstOwner/$dstRepository"
 pwd
@@ -18,7 +19,7 @@ set
 # can be controlled by the job setup
 
 # check out dst project to tmp dir
-"$SCRIPT_PATH"/checkout.sh $dstOwner $dstRepository
+"$SCRIPT_PATH"/checkout.sh "$dstOwner" "$dstRepository" "$dstToken"
 
 
 
