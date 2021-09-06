@@ -17,6 +17,9 @@ inputs:
   dst-repository:
     description: 'The GitHub repository where changes will be pushed to'
     required: true
+  dst-token:
+    description: 'Access token to read/write to the repo'
+    required: true
   files:
     description: 'The files to keep in sync'
     required: true
