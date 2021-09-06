@@ -6,11 +6,17 @@ echo "syncing $files to $dstRepository"
 pwd
 set
 
-cat $GITHUB_EVENT_PATH
+# not much useful in here
+#cat $GITHUB_EVENT_PATH
 
 # only run on pushes to master (or other specified branch)
+# can be controlled by the job setup
 
 # check out dst project to tmp dir
+./checkout.sh 'solubris' $dstRepository
+
+
+
 
 # for each file
 #   check if it is the push
