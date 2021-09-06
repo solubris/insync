@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH=$(dirname "$0")
+
 
 dstRepository="$1"
 files="$2"
@@ -13,7 +17,7 @@ set
 # can be controlled by the job setup
 
 # check out dst project to tmp dir
-./checkout.sh 'solubris' $dstRepository
+"$SCRIPT_PATH"/checkout.sh 'solubris' $dstRepository
 
 
 
