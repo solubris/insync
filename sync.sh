@@ -3,14 +3,14 @@
 SCRIPT_PATH=$(dirname "$0")
 
 
-dstOwner="$1"
-dstRepository="$2"
-dstToken="$3"
-files="$4"
+#dstOwner="$1"
+dstRepository="$1"
+dstToken="$2"
+files="$3"
 
-echo "syncing $files to $dstOwner/$dstRepository"
+echo "syncing $files to $dstRepository"
 pwd
-set
+#set
 
 # not much useful in here
 #cat $GITHUB_EVENT_PATH
@@ -32,8 +32,8 @@ cd "$DST_PATH"
 "$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken"
 cd -
 
-ls $SRC_PATH
-ls $DST_PATH
+ls -la "$SRC_PATH"
+ls -la "$DST_PATH"
 
 
 # for each file
