@@ -4,9 +4,9 @@ SCRIPT_PATH=$(dirname "$0")
 
 
 #dstOwner="$1"
-dstRepository="$1"
-dstToken="$2"
-files=("$3")
+dstRepository=shift
+dstToken=shift
+files=($*)
 
 echo "syncing ${files[*]} to $dstRepository"
 pwd
