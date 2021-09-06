@@ -6,9 +6,9 @@ SCRIPT_PATH=$(dirname "$0")
 #dstOwner="$1"
 dstRepository="$1"
 dstToken="$2"
-files="$3"
+files=("$3")
 
-echo "syncing $files to $dstRepository"
+echo "syncing ${files[*]} to $dstRepository"
 pwd
 #set
 
@@ -35,6 +35,9 @@ cd -
 ls -la "$SRC_PATH"
 ls -la "$DST_PATH"
 
+for f in ${files[*]}; do
+  echo checking "$f"
+done
 
 # for each file
 #   check if it is the push
