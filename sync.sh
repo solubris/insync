@@ -3,8 +3,10 @@ dstRepository="$1"
 files="$2"
 
 echo "syncing $files to $dstRepository"
-
+pwd
 set
+
+cat $GITHUB_EVENT_PATH
 
 # only run on pushes to master (or other specified branch)
 
