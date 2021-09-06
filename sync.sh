@@ -18,10 +18,22 @@ set
 # only run on pushes to master (or other specified branch)
 # can be controlled by the job setup
 
+#GITHUB_REPOSITORY=solubris/insync-src
+#GITHUB_REPOSITORY_OWNER=solubris
+
+SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
+cd "$SRC_PATH"
+"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$GITHUB_TOKEN"
+cd -
+
 # check out dst project to tmp dir
-"$SCRIPT_PATH"/checkout.sh "$dstOwner" "$dstRepository" "$dstToken"
+DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+cd "$DST_PATH"
+"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken"
+cd -
 
-
+ls $SRC_PATH
+ls $DST_PATH
 
 
 # for each file
