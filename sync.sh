@@ -44,7 +44,7 @@ for f in ${files[*]}; do
 done
 
 # don't push changes if there is already a branch for this change
-matchingBranches=$(git ls-remote --heads origin "$BRANCH_NAME" | wc -l)
+matchingBranches=$($SCRIPT_PATH/has-branch.sh "$DST_PATH")
 if [ $matchingBranches -ne 0 ]; then
   echo 'branch already exists, will not do anything'
   exit
