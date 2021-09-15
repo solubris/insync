@@ -6,6 +6,8 @@ commit_message_file="$3"
 
 git config user.name "insync"
 git config user.email "insync@github.com"
+#GITHUB_SERVER_URL=https://github.com
+git config --add hub.host $GITHUB_SERVER_URL
 
 git update-index --refresh
 git diff-index --quiet HEAD --

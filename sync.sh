@@ -54,7 +54,7 @@ localChanges=$($SCRIPT_PATH/has-local-changes.sh "$DST_PATH")
 if [ $localChanges -ne 0 ]; then
   echo 'found changes, pushing'
   cd "$DST_PATH"; $SCRIPT_PATH/push-to-git.sh $BRANCH_NAME "$BRANCH_NAME" $SCRIPT_PATH/description.txt
-#  $SCRIPT_PATH/hub-create-pr.sh "$PR_SCRIPT" $SCRIPT_PATH/description.txt
+  cd "$DST_PATH"; $SCRIPT_PATH/hub-create-pr.sh "$BRANCH_NAME" $SCRIPT_PATH/description.txt
 else
   echo 'no changes made, will not do anything'
 fi
