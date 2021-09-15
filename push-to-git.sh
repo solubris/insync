@@ -4,6 +4,9 @@ branch_name=$1
 commit_title="$2"
 commit_message_file="$3"
 
+git config user.name "insync"
+git config user.email "insync@github.com"
+
 git update-index --refresh
 git diff-index --quiet HEAD --
 changed=$?
