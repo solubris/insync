@@ -4,5 +4,9 @@
 #git config user.email github-actions@github.com
 # TODO use this var: GITHUB_SERVER_URL
 
-# use hub to clone so its setup for creating the pr later on
-hub clone "https://$2:x-oauth-basic@github.com/$1.git" .
+git clone "https://$2:x-oauth-basic@github.com/$1.git" .
+
+git config user.name "insync"
+git config user.email "insync@github.com"
+#GITHUB_SERVER_URL=https://github.com
+git config --add hub.host "$GITHUB_SERVER_URL"
