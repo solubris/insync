@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 SCRIPT_PATH=$(dirname "$0")
-
+# the branch name to push changes to
+BRANCH_NAME='insync'
 
 #dstOwner="$1"
 dstRepository=$1
@@ -39,7 +40,26 @@ ls -la "$DST_PATH"
 
 for f in ${files[*]}; do
   echo checking "$f"
+  cp "$SRC_PATH/$f" "$DST_PATH/"
 done
+
+# don't push changes if there is already a branch for this change
+matchingBranches=$(git ls-remote --heads origin "$BRANCH_NAME" | wc -l)
+if [ $matchingBranches -ne 0 ]; then
+  echo 'branch already exists, will not do anything'
+  exit
+fi
+
+localChanges=$($SCRIPT_PATH/has-local-changes.sh "$DST_PATH")
+if [ $localChanges -ne 0 ]; then
+  echo 'found changes, pushing'
+#  $SCRIPT_PATH/push-to-git.sh pr/$PR_SCRIPT "$PR_SCRIPT" $SCRIPT_PATH/description.txt
+#  $SCRIPT_PATH/hub-create-pr.sh "$PR_SCRIPT" $SCRIPT_PATH/description.txt
+else
+  echo 'no changes made, will not do anything'
+fi
+
+
 
 # for each file
 #   check if it is the push
