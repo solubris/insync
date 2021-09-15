@@ -44,9 +44,7 @@ for f in ${files[*]}; do
 done
 
 # don't push changes if there is already a branch for this change
-$SCRIPT_PATH/has-branch.sh "$DST_PATH"
-
-matchingBranches=$($SCRIPT_PATH/has-branch.sh "$DST_PATH")
+matchingBranches=$(cd "$DST_PATH"; $SCRIPT_PATH/has-branch.sh "$BRANCH_NAME")
 if [ $matchingBranches -ne 0 ]; then
   echo 'branch already exists, will not do anything'
   exit
@@ -55,7 +53,7 @@ fi
 localChanges=$($SCRIPT_PATH/has-local-changes.sh "$DST_PATH")
 if [ $localChanges -ne 0 ]; then
   echo 'found changes, pushing'
-#  $SCRIPT_PATH/push-to-git.sh pr/$PR_SCRIPT "$PR_SCRIPT" $SCRIPT_PATH/description.txt
+  cd "$DST_PATH"; $SCRIPT_PATH/push-to-git.sh $BRANCH_NAME "$BRANCH_NAME" $SCRIPT_PATH/description.txt
 #  $SCRIPT_PATH/hub-create-pr.sh "$PR_SCRIPT" $SCRIPT_PATH/description.txt
 else
   echo 'no changes made, will not do anything'
