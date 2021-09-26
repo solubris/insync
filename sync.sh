@@ -16,3 +16,5 @@ for f in ${files[*]}; do
     rm -f "$DST_PATH/$f"
   fi
 done
+
+cd "$DST_PATH"; git add .
