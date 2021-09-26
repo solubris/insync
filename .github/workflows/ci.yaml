@@ -17,3 +17,6 @@ jobs:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
+      - name: remove the branch created during test
+        run: |
+          git push -d origin insync
