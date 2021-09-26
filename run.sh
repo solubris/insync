@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -eo pipefail
 
 SCRIPT_PATH=$(dirname "$0")
 # the branch name to push changes to

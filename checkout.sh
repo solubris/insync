@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -eo pipefail
 
 # TODO use this var: GITHUB_SERVER_URL
 #GITHUB_SERVER_URL=https://github.com
