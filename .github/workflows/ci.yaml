@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: 'solubris/insync-dst'
+          path: 'insync-dst'
       - name: remove the branch created during test
         run: |
           git push -d origin insync
