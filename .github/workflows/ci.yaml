@@ -14,7 +14,7 @@ jobs:
       - name: sync test
         uses: ./
         with:
-          dst-repository: 'solubris/insync-dst'
+          dst-repository: 'solubris/insync' # push back to itself
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
           dry-run: true

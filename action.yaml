@@ -23,6 +23,9 @@ inputs:
   files:
     description: 'The files to keep in sync, may be new line delimited'
     required: true
+  dry-run:
+    description: "Set true to run the job without pushing."
+    default: 'false'
 #  allow-files-pattern:
 #    description: 'The regex pattern for files that allowed to update. By default all files.'
 #    default: '.*'
@@ -44,7 +47,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} "${{ inputs.files }}"
+    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} ${{ inputs.dry-run }} "${{ inputs.files }}"
       env:
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
       shell: bash

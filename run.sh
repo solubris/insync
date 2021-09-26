@@ -9,11 +9,15 @@ dstRepository=$1
 shift
 dstToken=$1
 shift
+dryRun=$1
+shift
 files=($*)
 
 echo "syncing ${files[*]} to $dstRepository"
 pwd
 #set
+
+echo "dryRun=$dryRun"
 
 # not much useful in here
 #cat $GITHUB_EVENT_PATH
