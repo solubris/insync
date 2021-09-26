@@ -20,6 +20,8 @@ inputs:
   dst-token:
     description: 'Access token to read/write to the repo'
     required: true
+  dst-branch:
+    description: 'the branch to push to, repo default branch if not specified'
   files:
     description: 'The files to keep in sync, may be new line delimited'
     required: true
@@ -47,7 +49,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} ${{ inputs.dry-run }} "${{ inputs.files }}"
+    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} "${{ inputs.files }}"
       env:
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
+        DST_BRANCH: ${{ inputs.dst-branch }}
+        DRY_RUN: ${{ inputs.dry-run }}
       shell: bash

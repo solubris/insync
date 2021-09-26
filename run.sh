@@ -7,11 +7,11 @@ BRANCH_NAME='insync'
 #dstOwner="$1"
 dstRepository=$1
 shift
-dstToken=$1
-shift
-dryRun=$1
-shift
 files=($*)
+
+dryRun=$DRY_RUN
+dstToken=$GITHUB_TOKEN
+dstBranch=$DST_BRANCH
 
 echo "syncing ${files[*]} to $dstRepository"
 pwd
@@ -35,7 +35,7 @@ cd "$SRC_PATH"
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
 cd "$DST_PATH"
-"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken" &
+"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken" "$dstBranch" &
 
 # src and dst checkouts can happen in parallel
 wait

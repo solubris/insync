@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  sync:
+  testFileRemoval:  # will create a pr to remove a file
     runs-on: ubuntu-latest
     steps:
       - name: prepare
@@ -16,5 +16,6 @@ jobs:
         with:
           dst-repository: 'solubris/insync' # push back to itself
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
-          files: .gitignore
+          dst-branch: test
+          files: onlyInDst.txt
           dry-run: true
