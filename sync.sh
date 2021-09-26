@@ -7,6 +7,11 @@ shift
 files=($*)
 
 for f in ${files[*]}; do
-  echo checking "$f"
-  cp "$SRC_PATH/$f" "$DST_PATH/"
+  if [ -e "$SRC_PATH/$f" ]; then
+    echo "copying file to dst: $f"
+    cp "$SRC_PATH/$f" "$DST_PATH/"
+  else
+    echo "file doesn't exist in src, removing from dest: $f"
+    rm -f "$DST_PATH/$f"
+  fi
 done

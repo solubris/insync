@@ -25,11 +25,13 @@ pwd
 #GITHUB_REPOSITORY_OWNER=solubris
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
-cd "$SRC_PATH"; "$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken"
+cd "$SRC_PATH"
+"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken"
 
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
-cd "$DST_PATH"; "$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken"
+cd "$DST_PATH"
+"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken"
 
 ls -la "$SRC_PATH"
 ls -la "$DST_PATH"
