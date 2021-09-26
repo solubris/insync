@@ -12,7 +12,7 @@ jobs:
       - name: prepare
         uses: actions/checkout@v2
       - name: sync test
-        uses: .
+        uses: ./
         with:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
