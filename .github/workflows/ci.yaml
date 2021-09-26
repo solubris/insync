@@ -9,8 +9,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: prepare
+        uses: actions/checkout@v2
       - name: sync test
-        uses: ${{ github.action_path }}/
+        uses: ./
         with:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
