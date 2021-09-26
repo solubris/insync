@@ -1,7 +1,7 @@
 branding:
-  icon: activity
+  icon: copy
   color: gray-dark
-name: SolubrisKeepInSync
+name: Files Sync Action
 description: 'Keep files in-sync between repositories'
 inputs:
 #  git-author-email:
@@ -21,7 +21,7 @@ inputs:
     description: 'Access token to read/write to the repo'
     required: true
   files:
-    description: 'The files to keep in sync'
+    description: 'The files to keep in sync, may be new line delimited'
     required: true
 #  allow-files-pattern:
 #    description: 'The regex pattern for files that allowed to update. By default all files.'
