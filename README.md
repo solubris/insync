@@ -4,6 +4,32 @@ Helps keep files in sync between repositories by pushing changes in a src repo t
 
 NOTE: repo's don't have to be forks, can be completely disparate
 
+## Example action
+
+Create the action in the source project:
+
+    .github/workflows/main.yml
+
+With the contents:
+
+    on:
+      push:
+        branches: [master]
+    
+    jobs:
+      sync_job:
+        runs-on: ubuntu-latest
+        steps:
+          - id: sync
+            uses: solubris/insync@1.0.0
+            with:
+              dst-repository: 'the-org/the-dst-repo'
+              dst-token: ${{ secrets.TOKEN }}
+              files: '.gitignore .editorconfig'
+
+NOTE: requires the token used to access the dest repo to be saved in the secrets in the source repo
+Alternatively, the secret could be saved at the organisation level
+
 # Future enhancements
 
 - user/email of source commit could be used for pushing to the dest repo
