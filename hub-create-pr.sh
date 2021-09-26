@@ -8,7 +8,9 @@ messageFile="$2"
 message=$(sed 's/^/* /' $messageFile)
 
 # each -m means a new line will be added
-hub pull-request -m $title -m '' -m "$message" -l java
+hub pull-request -m $title -m '' -m "$message"
+
+# -l java
 
 # --no-edit - doesn't work as it cant detect commits
 # also tried with unpushed changes, still doesn't work

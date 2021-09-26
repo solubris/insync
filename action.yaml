@@ -44,15 +44,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/sync.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} ${{ inputs.files }}
-#      env:
-#        SYNC_BRANCH_NAME: ${{ inputs.sync-branch-name }}
-#        SYNC_REPOSITORY: ${{ inputs.dst-repository }}
-#        AUTHOR_EMAIL: ${{ inputs.git-author-email }}
-#        AUTHOR_NAME: ${{ inputs.git-author-name }}
-#        REGEX: ${{ inputs.allow-files-pattern }}
-#        EXCLUDE_FILES: ${{ inputs.exclude-files }}
-#        WORKING_DIRECTORY: ${{ inputs.working-directory }}
-#        SYNC_IGNORE_FILE_NAME: ${{ inputs.sync-ignore-file-name }}
-#        RESULT_BRANCH_NAME: ${{ inputs.result-branch-name }}
+    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} ${{ inputs.dst-token }} ${{ inputs.files }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
       shell: bash
