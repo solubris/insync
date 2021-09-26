@@ -13,6 +13,10 @@ BRANCH="$3"
 
 git clone "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
 
+# shellcheck disable=SC2207
+#uniqueAuthorEmails=( $(git log origin/master.. --format=%ae | sort -u) )
+
+
 git config user.name "insync"
 git config user.email "insync@github.com"
 git config --add hub.host "github.com"
