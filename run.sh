@@ -4,7 +4,6 @@ set -eo pipefail
 
 SCRIPT_PATH=$(dirname "$0")
 # the branch name to push changes to
-BRANCH_NAME='insync'
 
 #dstOwner="$1"
 dstRepository=$1
@@ -14,6 +13,7 @@ files=($*)
 dryRun=$DRY_RUN
 dstToken=$GITHUB_TOKEN
 dstBranch=$DST_BRANCH
+prBranch=${PR_BRANCH:-insync}
 
 echo "syncing ${files[*]} to $dstRepository"
 pwd
@@ -48,7 +48,7 @@ ls -la "$DST_PATH"
 
 cd "$DST_PATH"
 # don't push changes if there is already a branch for this change
-matchingBranches=$($SCRIPT_PATH/has-branch.sh "$BRANCH_NAME")
+matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
 if [ $matchingBranches -ne 0 ]; then
   echo 'branch already exists, will not do anything'
   exit
@@ -57,8 +57,8 @@ fi
 localChanges=$($SCRIPT_PATH/has-local-changes.sh)
 if [ $localChanges -ne 0 ]; then
   echo 'found changes, pushing'
-  $SCRIPT_PATH/push-to-git.sh $BRANCH_NAME "$BRANCH_NAME" $SCRIPT_PATH/description.txt
-  $SCRIPT_PATH/hub-create-pr.sh "$BRANCH_NAME" $SCRIPT_PATH/description.txt
+  $SCRIPT_PATH/push-to-git.sh "$prBranch" "$prBranch" $SCRIPT_PATH/description.txt
+  $SCRIPT_PATH/hub-create-pr.sh "$prBranch" $SCRIPT_PATH/description.txt
 else
   echo 'no changes made, will not do anything'
 fi

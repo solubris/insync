@@ -17,12 +17,13 @@ jobs:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
+          pr-branch: testUpdate
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
           git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
-          git push -d origin insync
+          git push -d origin testUpdate
   testCopy:  # will create a pr to copy over a new file
     runs-on: ubuntu-latest
     steps:
@@ -34,12 +35,13 @@ jobs:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .editorconfig
+          pr-branch: testCopy
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
           git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
-          git push -d origin insync
+          git push -d origin testCopy
   testDelete:  # will create a pr to delete file from dst
     runs-on: ubuntu-latest
     steps:
@@ -51,9 +53,10 @@ jobs:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .dummyFileForTest
+          pr-branch: testDelete
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
           git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
-          git push -d origin insync
+          git push -d origin testDelete
