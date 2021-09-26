@@ -16,7 +16,5 @@ jobs:
         with:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
-          files: |
-            .gitignore
-            .editorconfig
+          files: .gitignore
           dry-run: true
