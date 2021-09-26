@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit -o nounset -o pipefail
+
 SCRIPT_PATH=$(dirname "$0")
 # the branch name to push changes to
 BRANCH_NAME='insync'

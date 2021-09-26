@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit -o nounset -o pipefail
+
 # TODO use this var: GITHUB_SERVER_URL
 #GITHUB_SERVER_URL=https://github.com
 
