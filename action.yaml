@@ -1,6 +1,6 @@
 branding:
   icon: copy
-  color: gray-dark
+  color: white
 name: In Sync Action
 description: 'Keep files in-sync between repositories'
 inputs:

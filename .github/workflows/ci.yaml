@@ -1,0 +1,20 @@
+name: ci
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sync test
+        uses: ./
+        with:
+          dst-repository: 'solubris/insync-dst'
+          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
+          files: |
+            .gitignore
+            .editorconfig
+          dry-run: true
