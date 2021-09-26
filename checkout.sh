@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-set -o errexit -o nounset -o pipefail
+set -euxo pipefail
 
 # TODO use this var: GITHUB_SERVER_URL
 #GITHUB_SERVER_URL=https://github.com
 
-REPO=$1
-TOKEN=$2
-BRANCH=$3
+REPO="$1"
+TOKEN="$2"
+BRANCH="$3"
 
 # TODO token is not required for source repo, so token could be empty
 
