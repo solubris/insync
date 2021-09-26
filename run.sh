@@ -26,13 +26,15 @@ pwd
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken"
+"$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken" &
 
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
 cd "$DST_PATH"
-"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken"
+"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken" &
 
+# src and dst checkouts can happen in parallel
+wait
 ls -la "$SRC_PATH"
 ls -la "$DST_PATH"
 
