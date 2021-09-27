@@ -60,11 +60,11 @@ ls -la "$DST_PATH"
 
 cd "$DST_PATH"
 # don't push changes if there is already a branch for this change
-matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
-if [ $matchingBranches -ne 0 ]; then
-  echo 'branch already exists, will not do anything'
-  exit
-fi
+#matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
+#if [ $matchingBranches -ne 0 ]; then
+#  echo 'branch already exists, will not do anything'
+#  exit
+#fi
 
 localChanges=$($SCRIPT_PATH/has-local-changes.sh)
 if [ $localChanges -ne 0 ]; then
