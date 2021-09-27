@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: prepare
         uses: actions/checkout@v2
-      - name: sync test
+      - name: sync
         uses: ./
         with:
           dst-repository: 'solubris/insync-dst'
@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: prepare
         uses: actions/checkout@v2
-      - name: sync test
+      - name: sync
         uses: ./
         with:
           dst-repository: 'solubris/insync-dst'
@@ -47,7 +47,7 @@ jobs:
     steps:
       - name: prepare
         uses: actions/checkout@v2
-      - name: sync test
+      - name: sync
         uses: ./
         with:
           dst-repository: 'solubris/insync-dst'
@@ -60,3 +60,28 @@ jobs:
           cd "$DST_PATH"
           git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
           git push -d origin testDelete
+  testUpdateWithExistingBranch:  # will update existing branch/pr
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare
+        uses: actions/checkout@v2
+      - name: sync
+        uses: ./
+        with:
+          dst-repository: 'solubris/insync-dst'
+          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
+          files: .gitignore
+          pr-branch: testUpdateWithExistingBranch
+      - name: sync
+        uses: ./
+        with:
+          dst-repository: 'solubris/insync-dst'
+          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
+          files: .gitignore .dummyFileForTest
+          pr-branch: testUpdateWithExistingBranch
+      - name: remove the branch created during test
+        run: |
+          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "$DST_PATH"
+          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git push -d origin testUpdateWithExistingBranch

@@ -76,7 +76,16 @@ Benefits over alternatives:
 - Doesn't use docker so actions will run in seconds
 - Doesn't use nodeJs
 - Uses original commit author/message in commits to destination repo's
-- provides link to the original commit
+- Provides link to the original commit
+- Uses hub command line tool rather than direct http requests for creating PR's
 
 
+Unidirectional
+Master -> slave 1
+       -> slave 2
+       -> slave 3
 
+Bidirectional
+Slave 1 -> Master
+Master -> slave 2
+       -> slave 3
