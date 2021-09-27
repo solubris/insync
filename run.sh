@@ -22,7 +22,9 @@ set
 echo "dryRun=$dryRun"
 
 # not much useful in here
-#cat $GITHUB_EVENT_PATH
+cat $GITHUB_EVENT_PATH
+
+#GITHUB_ACTOR=lithium147
 
 # only run on pushes to master (or other specified branch)
 # can be controlled by the job setup
