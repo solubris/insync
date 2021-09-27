@@ -63,11 +63,12 @@ ls -la "$DST_PATH"
 cd "$DST_PATH"
 "$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
 
-matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
-if [ $matchingBranches -ne 0 ]; then
-  echo 'branch already exists, will reuse this branch'
-  git checkout "$prBranch"
-fi
+git checkout "$prBranch" || true
+#matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
+#if [ $matchingBranches -ne 0 ]; then
+#  echo 'branch already exists, will reuse this branch'
+#  git checkout "$prBranch"
+#fi
 
 localChanges=$($SCRIPT_PATH/has-local-changes.sh)
 if [ $localChanges -ne 0 ]; then
