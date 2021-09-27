@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
-SRC_PATH=$1
-shift
-DST_PATH=$1
-shift
+set -eo pipefail
+
+SRC_PATH="$1"; shift
+DST_PATH="$1"; shift
 files=($*)
 
 for f in ${files[*]}; do
+  rm -rf "$DST_PATH/$f"
+
   if [ -e "$SRC_PATH/$f" ]; then
     echo "copying file to dst: $f"
     cp -r "$SRC_PATH/$f" "$DST_PATH/"
-    cd "$DST_PATH"; git add "$f"
-  else
-    echo "file doesn't exist in src, removing from dest: $f"
-    rm -f "$DST_PATH/$f"
+#    cd "$DST_PATH"; git add "$f"
+#  else
+#    echo "file doesn't exist in src, removing from dest: $f"
   fi
 done
 
