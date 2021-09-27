@@ -1,3 +1,5 @@
+![CI workflow](https://github.com/solubris/insync/actions/workflows/ci.yaml/badge.svg)
+
 # Sync files
 
 Helps keep files in sync between repositories by pushing changes in a src repo to a dest repo.
@@ -94,4 +96,12 @@ To sync workflow files, token needs workflow permissions
 
 ! [remote rejected] testUpdateDir -> testUpdateDir (refusing to allow a Personal Access Token to create or update workflow `.github/workflows/ci.yaml` without `workflow` scope)
 
+use post action so that it is always executed for cleanup
+
+paths can be used in the job definition:
+
+    on:
+      push:
+        paths:
+          - '**.js'
 
