@@ -60,14 +60,11 @@ ls -la "$DST_PATH"
 
 # loop through each dst from here
 cd "$DST_PATH"
-"$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
 
+# if there is a prBranch, start from that, otherwise it will be created later
 git checkout "$prBranch" || true
-#matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
-#if [ $matchingBranches -ne 0 ]; then
-#  echo 'branch already exists, will reuse this branch'
-#  git checkout "$prBranch"
-#fi
+
+"$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
 
 localChanges=$($SCRIPT_PATH/has-local-changes.sh)
 if [ $localChanges -ne 0 ]; then

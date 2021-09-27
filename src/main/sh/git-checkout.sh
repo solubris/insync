@@ -13,7 +13,13 @@ BRANCH="$5"
 
 # TODO token is not required for source repo, so token could be empty
 
-git clone --no-tags "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
+BRANCH_PARAM=""
+if [ "$BRANCH" != "" ]; then
+  echo checking out branch $BRANCH
+  BRANCH_PARAM="-b $BRANCH"
+fi
+
+git clone --no-tags "$BRANCH_PARAM" "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
 
 if [ "$NAME" != "" ]; then
   git config user.name "$NAME"
@@ -23,8 +29,3 @@ if [ "$EMAIL" != "" ]; then
 fi
 
 git config --add hub.host "github.com"
-
-if [ "$BRANCH" != "" ]; then
-  echo switching to branch $BRANCH
-  git checkout "$BRANCH"
-fi
