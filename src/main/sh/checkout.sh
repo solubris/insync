@@ -13,7 +13,7 @@ BRANCH="$5"
 
 # TODO token is not required for source repo, so token could be empty
 
-git clone --depth=1 "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
+git clone --depth=1 --no-tags "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
 
 if [ "$NAME" != "" ]; then
   git config user.name "$NAME"
