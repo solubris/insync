@@ -47,7 +47,7 @@ echo "pusher: $pusherName $pusherEmail"
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
 "$SCRIPT_PATH"/checkout.sh "$GITHUB_REPOSITORY" "$dstToken" &
-rm -rf .git # remove local git so it cant interfere with copy
+rm -rf $SRC_PATH/.git # remove local git so it cant interfere with copy
 
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
