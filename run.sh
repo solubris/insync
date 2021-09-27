@@ -17,12 +17,17 @@ prBranch=${PR_BRANCH:-insync}
 
 echo "syncing ${files[*]} to $dstRepository"
 pwd
-set
+#set
 
 echo "dryRun=$dryRun"
 
 # not much useful in here
-cat $GITHUB_EVENT_PATH
+cat $GITHUB_EVENT_PATH | jq -r 'pusher.email'
+#  "pusher": {
+#    "email": "timlwalters@yahoo.co.uk",
+#    "name": "lithium147"
+#  },
+
 
 #GITHUB_ACTOR=lithium147
 
