@@ -51,7 +51,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} "${{ inputs.files }}"
+    - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} "${{ inputs.files }}"
       env:
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
         DST_BRANCH: ${{ inputs.dst-branch }}

@@ -7,6 +7,7 @@ DST_PATH="$1"; shift
 files=($*)
 
 for f in ${files[*]}; do
+  # TODO can't handle if file='.'
   rm -rf "$DST_PATH/$f"
 
   if [ -e "$SRC_PATH/$f" ]; then

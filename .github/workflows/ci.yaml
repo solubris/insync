@@ -95,7 +95,7 @@ jobs:
         with:
           dst-repository: 'solubris/insync-dst'
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
-          files: .
+          files: src
           pr-branch: testUpdateDir
       - name: remove the branch created during test
         run: |
