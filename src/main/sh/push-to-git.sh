@@ -15,7 +15,7 @@ fi
 commit_message=$(cat $commit_message_file)
 
 echo "creating branch and pushing to origin"
-git checkout -b $branch_name
+#git checkout -b $branch_name
 git add .
 git commit -m "$commit_title" -m "$commit_message"
 git push -u origin $branch_name

@@ -61,8 +61,8 @@ ls -la "$DST_PATH"
 # loop through each dst from here
 cd "$DST_PATH"
 
-# if there is a prBranch, start from that, otherwise it will be created later
-git checkout "$prBranch" || true
+# if there is a prBranch, start from that, otherwise create it
+git checkout "$prBranch" || git checkout -b "$prBranch"
 
 "$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
 
