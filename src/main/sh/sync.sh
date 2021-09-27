@@ -12,7 +12,7 @@ for f in ${files[*]}; do
 
   if [ -e "$SRC_PATH/$f" ]; then
     echo "copying file to dst: $f"
-    cp -r "$SRC_PATH/$f" "$DST_PATH/"
+    cp -r "$SRC_PATH/$f" "$DST_PATH/$f"
 #    cd "$DST_PATH"; git add "$f"
 #  else
 #    echo "file doesn't exist in src, removing from dest: $f"
