@@ -74,7 +74,7 @@ Benefits over alternatives:
 - Doesn't require the github checkout action so the jobs are simpler and more efficient
 - Doesn't use docker so actions will run in seconds
 - Doesn't use nodeJs
-
+- Uses original commit author/message in commits to destination repo's
 
 
 

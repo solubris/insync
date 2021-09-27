@@ -24,6 +24,12 @@ echo "dryRun=$dryRun"
 pusherEmail=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.email' )
 pusherName=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.name' )
 cat $GITHUB_EVENT_PATH | jq -r '.head_commit.message' > $SCRIPT_PATH/description.txt
+echo >> $SCRIPT_PATH/description.txt
+echo 'Triggered by change in source repo:' >> $SCRIPT_PATH/description.txt
+cat $GITHUB_EVENT_PATH | jq -r '.head_commit.url' >> $SCRIPT_PATH/description.txt
+echo 'Powered by insync:' >> $SCRIPT_PATH/description.txt
+echo 'https://github.com/marketplace/actions/in-sync-action' >> $SCRIPT_PATH/description.txt
+
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
