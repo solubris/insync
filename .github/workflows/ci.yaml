@@ -54,6 +54,16 @@ jobs:
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .dummyFileForTest
           pr-branch: testDelete
+      - name: check the file does not exist in the dst repo
+        run: |
+          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "$DST_PATH"
+          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git checkout testDelete
+          if [ -e .dummyFileForTest ]; then
+            echo .dummyFileForTest was not deleted
+            exit 1
+          fi
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
