@@ -12,6 +12,11 @@ for f in ${files[*]}; do
 
   if [ -e "$SRC_PATH/$f" ]; then
     echo "copying file to dst: $f"
+    if [[ $f =~ '/' ]]; then
+      fPath="${f%/*}"
+      echo "creating path: $fPath"
+      mkdir -p "$DST_PATH/$fPath"
+    fi
     cp -r "$SRC_PATH/$f" "$DST_PATH/$f"
 #    cd "$DST_PATH"; git add "$f"
 #  else
