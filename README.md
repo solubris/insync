@@ -89,3 +89,9 @@ Bidirectional
 Slave 1 -> Master
 Master -> slave 2
        -> slave 3
+
+To sync workflow files, token needs workflow permissions
+
+! [remote rejected] testUpdateDir -> testUpdateDir (refusing to allow a Personal Access Token to create or update workflow `.github/workflows/ci.yaml` without `workflow` scope)
+
+
