@@ -22,7 +22,7 @@ pwd
 echo "dryRun=$dryRun"
 
 # not much useful in here
-cat $GITHUB_EVENT_PATH | jq -r 'pusher.email'
+cat $GITHUB_EVENT_PATH | jq -r '.pusher.email'
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
