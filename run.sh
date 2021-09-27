@@ -30,6 +30,8 @@ cat $GITHUB_EVENT_PATH | jq -r '.head_commit.url' >> $SCRIPT_PATH/description.tx
 echo 'Powered by insync:' >> $SCRIPT_PATH/description.txt
 echo 'https://github.com/marketplace/actions/in-sync-action' >> $SCRIPT_PATH/description.txt
 
+echo "pusher: $pusherName $pusherEmail"
+
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
