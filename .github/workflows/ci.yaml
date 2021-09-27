@@ -85,3 +85,21 @@ jobs:
           cd "$DST_PATH"
           git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
           git push -d origin testUpdateWithExistingBranch
+  testUpdateDir:  # will create a pr to update existing file
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare
+        uses: actions/checkout@v2
+      - name: sync
+        uses: ./
+        with:
+          dst-repository: 'solubris/insync-dst'
+          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
+          files: .
+          pr-branch: testUpdateDir
+      - name: remove the branch created during test
+        run: |
+          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "$DST_PATH"
+          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git push -d origin testUpdateDir
