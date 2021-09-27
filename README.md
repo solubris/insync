@@ -32,10 +32,11 @@ Alternatively, the secret could be saved at the organisation level
 
 # Future enhancements
 
-- user/email of source commit could be used for pushing to the dest repo
+- user/email of source commit could be used for pushing to the dest repo - done
 - delete branch if job failed
 - dont overwrite if dst file is newer
-- test adding new files
+- test adding new files - done
+- test adding files in subdir
 - collating changes - multiple changes can be collated to an existing branch
 - allow push to master - so no pr required
 - allow auto merge pr's
@@ -75,7 +76,7 @@ Benefits over alternatives:
 - Doesn't use docker so actions will run in seconds
 - Doesn't use nodeJs
 - Uses original commit author/message in commits to destination repo's
-
+- provides link to the original commit
 
 
 
