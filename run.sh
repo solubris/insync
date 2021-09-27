@@ -3,7 +3,6 @@
 set -eo pipefail
 
 SCRIPT_PATH=$(dirname "$0")
-# the branch name to push changes to
 
 #dstOwner="$1"
 dstRepository=$1
@@ -24,7 +23,7 @@ echo "dryRun=$dryRun"
 # not much useful in here
 pusherEmail=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.email' )
 pusherName=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.name' )
-commitMessage=$( cat $GITHUB_EVENT_PATH | jq -r '.head_commit.message' )
+cat $GITHUB_EVENT_PATH | jq -r '.head_commit.message' > $SCRIPT_PATH/description.txt
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
