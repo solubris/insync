@@ -7,18 +7,21 @@ set -eo pipefail
 
 REPO="$1"
 TOKEN="$2"
-BRANCH="$3"
+EMAIL="$3"
+NAME="$4"
+BRANCH="$5"
 
 # TODO token is not required for source repo, so token could be empty
 
 git clone "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
 
-# shellcheck disable=SC2207
-#uniqueAuthorEmails=( $(git log origin/master.. --format=%ae | sort -u) )
+if [ "$NAME" != "" ]; then
+  git config user.name "$NAME"
+fi
+if [ "$EMAIL" != "" ]; then
+  git config user.email "$EMAIL"
+fi
 
-
-git config user.name "insync"
-git config user.email "insync@github.com"
 git config --add hub.host "github.com"
 
 if [ "$BRANCH" != "" ]; then

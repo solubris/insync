@@ -22,13 +22,13 @@ pwd
 echo "dryRun=$dryRun"
 
 # not much useful in here
-cat $GITHUB_EVENT_PATH | jq -r '.pusher.email'
+pusherEmail=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.email' )
+pusherName=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.name' )
+commitMessage=$( cat $GITHUB_EVENT_PATH | jq -r '.head_commit.message' )
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
 #  },
-
-
 #GITHUB_ACTOR=lithium147
 
 # only run on pushes to master (or other specified branch)
@@ -44,7 +44,7 @@ cd "$SRC_PATH"
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
 cd "$DST_PATH"
-"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken" "$dstBranch" &
+"$SCRIPT_PATH"/checkout.sh "$dstRepository" "$dstToken" "$pusherEmail" "$pusherName" "$dstBranch" &
 
 # src and dst checkouts can happen in parallel
 wait
