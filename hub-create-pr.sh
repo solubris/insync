@@ -5,7 +5,8 @@ title="$1"
 messageFile="$2"
 
 # bullet formatting for pr description
-message=$(sed 's/^/* /' $messageFile)
+#message=$(sed 's/^/* /' $messageFile)
+message=$(sed 's///' $messageFile)
 
 # each -m means a new line will be added
 hub pull-request -m $title -m '' -m "$message"
