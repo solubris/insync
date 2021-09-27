@@ -59,15 +59,14 @@ rm -rf $SRC_PATH/.git # remove local git so it cant interfere with copy
 ls -la "$SRC_PATH"
 ls -la "$DST_PATH"
 
-"$SCRIPT_PATH"/sync.sh "$SRC_PATH" "$DST_PATH" ${files[*]}
-
+# loop through each dst from here
 cd "$DST_PATH"
-# don't push changes if there is already a branch for this change
+"$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
+
 matchingBranches=$($SCRIPT_PATH/has-branch.sh "$prBranch")
 if [ $matchingBranches -ne 0 ]; then
   echo 'branch already exists, will reuse this branch'
-  git checkout $prBranch
-#  exit
+  git checkout "$prBranch"
 fi
 
 localChanges=$($SCRIPT_PATH/has-local-changes.sh)
@@ -78,17 +77,3 @@ if [ $localChanges -ne 0 ]; then
 else
   echo 'no changes made, will not do anything'
 fi
-
-
-
-# for each file
-#   check if it is the push
-#   what if the action missed to run on a push?
-#   if file has changed
-#   copy file into tmp dir
-# end
-
-# if there are changes in tmp dir
-# push changes to a branch
-# create pr
-

@@ -36,10 +36,13 @@ Alternatively, the secret could be saved at the organisation level
 
 - user/email of source commit could be used for pushing to the dest repo - done
 - delete branch if job failed
+  - only do this if the branch wasn't already there
 - dont overwrite if dst file is newer
+  - this might add undue complexity
 - test adding new files - done
-- test adding files in subdir
-- collating changes - multiple changes can be collated to an existing branch
+- test adding files in subdir - done
+- collating changes - multiple changes can be collated to an existing branch - done
+  - what about the pr description, should subsequent changes update the pr description?
 - allow push to master - so no pr required
 - allow auto merge pr's
 - templates - perform replacement on templated files
