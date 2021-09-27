@@ -115,6 +115,13 @@ jobs:
           dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: src/main/sh/run.sh
           pr-branch: testCopyWithSubdir
+      - name: check the files exist in the dst repo
+        run: |
+          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "$DST_PATH"
+          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git checkout testCopyWithSubdir
+          ls src/main/sh/run.sh
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
