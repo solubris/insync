@@ -8,22 +8,23 @@ inputs:
 #    description: 'Email of the committer.'
 #  git-author-name:
 #    description: 'Name of the committer.'
-  owner:
-    description: 'Repository owner where changes will be pushed to (defaults to same owner)'
-    default: ${{ github.repository_owner }}
-  repository:
-    description: 'Repository where changes will be pushed to'
+#  owner:
+#    description: 'Repository owner where changes will be pushed to (defaults to same owner)'
+#    default: ${{ github.repository_owner }}
+  repositories:
+    description: 'Repositories where changes will be pushed to'
     required: true
   token:
-    description: 'Access token to read/write to the destination repo'
+    description: |
+      Access token to read/write to the destination repo.
+      NOTE: same token is used to access all the repositories.
     required: true
-  dst-branch:
-    description: 'Branch to push to, repo default branch if not specified'
   files:
     description: 'Files to keep in sync, may be new line delimited'
     required: true
   pr-branch:
-    description: 'Branch to make the changes in, insync if not specified'
+    description: 'Branch to make the changes in'
+    default: insync/${{ github.repository }}
   dry-run:
     description: "Set true to run the job without pushing."
     default: false
@@ -33,12 +34,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.owner }} ${{ inputs.repository }} "${{ inputs.files }}"
+    - run: ${{ github.action_path }}/src/main/sh/run.sh "${{ inputs.files }}"
       env:
+        REPOSITORIES: "${{ inputs.repositories }}"
         SRC_TOKEN: ${{ github.token }}
         DST_TOKEN: ${{ inputs.token }}
         GITHUB_TOKEN: ${{ inputs.token }} # required to create the PR by hub command line
-        DST_BRANCH: ${{ inputs.dst-branch }}
         PR_BRANCH: ${{ inputs.pr-branch }}
         DRY_RUN: ${{ inputs.dry-run }}
       shell: bash

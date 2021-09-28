@@ -1,4 +1,5 @@
 ![CI workflow](https://github.com/solubris/insync/actions/workflows/ci.yaml/badge.svg)
+[![version](https://img.shields.io/github/v/release/solubris/insync)](https://img.shields.io/github/v/release/solubris/insync)
 
 # Sync files
 
@@ -19,15 +20,17 @@ With the contents:
         branches: [master]
     
     jobs:
-      sync_job:
+      sync:
         runs-on: ubuntu-latest
         steps:
           - id: sync
-            uses: solubris/insync@1.0.0
+            uses: solubris/insync@1.2.0
             with:
-              dst-repository: 'the-org/the-dst-repo'
-              dst-token: ${{ secrets.TOKEN }}
-              files: '.gitignore .editorconfig'
+              repositories: the-dst-repo
+              token: ${{ secrets.TOKEN }}
+              files: |
+                .gitignore
+                .editorconfig
 
 NOTE: requires the token used to access the dest repo to be saved in the secrets in the source repo
 Alternatively, the secret could be saved at the organisation level

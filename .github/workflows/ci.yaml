@@ -14,7 +14,7 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
           pr-branch: testUpdate
@@ -32,7 +32,7 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .editorconfig
           pr-branch: testCopy
@@ -57,7 +57,7 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .dummyFileForTest
           pr-branch: testDelete
@@ -91,14 +91,14 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
           pr-branch: testUpdateWithExistingBranch
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore .dummyFileForTest
           pr-branch: testUpdateWithExistingBranch
@@ -116,7 +116,7 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: src
           pr-branch: testUpdateDir
@@ -134,7 +134,7 @@ jobs:
       - name: sync
         uses: ./
         with:
-          repository: 'insync-dst'
+          repositories: 'insync-dst'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: src/main/sh/run.sh
           pr-branch: testCopyWithSubdir

@@ -4,28 +4,25 @@ set -eo pipefail
 SCRIPT_PATH=$(dirname "$0")
 
 # env vars
-# provided by github
-# GITHUB_EVENT_PATH: string
+# provided by github actions
+# - GITHUB_EVENT_PATH: string
 #
 # provided by action.yaml
-# DRY_RUN: true|false
-# DST_BRANCH: optional string
-# DST_TOKEN: string
-# SRC_TOKEN: string
+# - DRY_RUN: true|false
+# - DST_TOKEN: string
+# - SRC_TOKEN: string
+# - REPOSITORIES: string
+# - GITHUB_TOKEN: string
+# - PR_BRANCH: string
 
-owner="$1"; shift
-repository="$1"; shift
 files=($*)
-
-prBranch=${PR_BRANCH:-insync}
 
 echo "syncing ${files[*]} to $repository"
 pwd
-set
+#set
 
 echo "dry run=$DRY_RUN"
 
-# not much useful in here
 pusher_email=$( jq -r '.pusher.email' "$GITHUB_EVENT_PATH" )
 pusher_name=$( jq -r '.pusher.name' "$GITHUB_EVENT_PATH" )
 jq -r '.head_commit.message' "$GITHUB_EVENT_PATH" > $SCRIPT_PATH/description.txt
@@ -51,31 +48,33 @@ echo "pusher: $pusher_name $pusher_email"
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN" &
+"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
+ls -la
 
-# check out dst project to tmp dir
-DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
-cd "$DST_PATH"
-"$SCRIPT_PATH"/git-checkout.sh "$owner/$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$DST_BRANCH" &
+# loop through all the destination repositories
+for repository in ${REPOSITORIES[*]}; do
+  owner="$GITHUB_REPOSITORY_OWNER"  # TODO extract from $repository
+  branch="" # TODO extract from $repository
 
-# src and dst checkouts can happen in parallel
-wait
-ls -la "$SRC_PATH"
-ls -la "$DST_PATH"
+  DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+  cd "$DST_PATH"
+  "$SCRIPT_PATH"/git-checkout.sh "$owner/$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
+  ls -la
 
-# loop through each dst from here
-cd "$DST_PATH"
+  if [ -n "$PR_BRANCH" ]; then
+    # if there is a PR_BRANCH already in the remote, start from that
+    # otherwise create it
+    git checkout "$PR_BRANCH" || git checkout -b "$PR_BRANCH"
+  fi
 
-# if there is a prBranch, start from that, otherwise create it
-git checkout "$prBranch" || git checkout -b "$prBranch"
+  "$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
 
-"$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
-
-localChanges=$($SCRIPT_PATH/has-local-changes.sh)
-if [ $localChanges -ne 0 ]; then
-  echo 'found changes, pushing'
-  $SCRIPT_PATH/push-to-git.sh "$prBranch" "$prBranch" $SCRIPT_PATH/description.txt
-  $SCRIPT_PATH/hub-create-pr.sh "$prBranch" $SCRIPT_PATH/description.txt
-else
-  echo 'no changes made, will not do anything'
-fi
+  localChanges=$($SCRIPT_PATH/has-local-changes.sh)
+  if [ $localChanges -ne 0 ]; then
+    echo 'found changes, pushing'
+    $SCRIPT_PATH/push-to-git.sh "$PR_BRANCH" "$PR_BRANCH" $SCRIPT_PATH/description.txt
+    $SCRIPT_PATH/hub-create-pr.sh "$PR_BRANCH" $SCRIPT_PATH/description.txt
+  else
+    echo 'no changes made, will not do anything'
+  fi
+done

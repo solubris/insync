@@ -18,14 +18,10 @@ echo "creating branch and pushing to origin"
 #git checkout -b $branch_name
 git add .
 git commit -m "$commit_title" -m "$commit_message"
-git push -u origin $branch_name
 
-# must be on master
-#  currentBranch=$(git rev-parse --abbrev-ref HEAD)
-#  if [[ $currentBranch != "master" ]]; then
-#    echo "can only create pr from master"
-#    return
-#  fi
+if [ "$DRY_RUN" == "true" ]; then
+  dry_run_opt="--dry-run"
+  echo "dry-run::push will be made with $dry_run_opt option"
+fi
 
-# to delete the remote branch if not happy
-# git push -d origin uppercase-hex-digits
+git push $dry_run_opt -u origin $branch_name
