@@ -43,6 +43,7 @@ Alternatively, the secret could be saved at the organisation level
 - test adding files in subdir - done
 - collating changes - multiple changes can be collated to an existing branch - done
   - what about the pr description, should subsequent changes update the pr description?
+    - could add a comment to the pr
 - allow push to master - so no pr required
 - allow auto merge pr's
 - templates - perform replacement on templated files

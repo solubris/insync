@@ -2,56 +2,38 @@ branding:
   icon: copy
   color: white
 name: In Sync Action
-description: 'Keep files in-sync between repositories'
+description: Keep files in-sync between repositories
 inputs:
 #  git-author-email:
-#    description: 'The email of the committer.'
-#    required: true
+#    description: 'Email of the committer.'
 #  git-author-name:
-#    description: 'The name of the committer.'
-#    required: true
-#  dst-owner:
-#    description: 'The GitHub repository owner where changes will be pushed to (defaults to same owner)'
-#    required: false
+#    description: 'Name of the committer.'
+#  owner:
+#    description: 'Repository owner where changes will be pushed to (defaults to same owner)'
 #    default: ${{ github.repository_owner }}
-  dst-repository:
-    description: 'The GitHub repository where changes will be pushed to'
+  repository:
+    description: 'Repository where changes will be pushed to'
     required: true
   dst-token:
     description: 'Access token to read/write to the repo'
     required: true
   dst-branch:
-    description: 'the branch to push to, repo default branch if not specified'
+    description: 'Branch to push to, repo default branch if not specified'
   files:
-    description: 'The files to keep in sync, may be new line delimited'
+    description: 'Files to keep in sync, may be new line delimited'
     required: true
   pr-branch:
-    description: 'the branch to make the changes in, insync if not specified'
+    description: 'Branch to make the changes in, insync if not specified'
   dry-run:
     description: "Set true to run the job without pushing."
     default: 'false'
-#  allow-files-pattern:
-#    description: 'The regex pattern for files that allowed to update. By default all files.'
-#    default: '.*'
-#  sync-branch-name:
-#    descripion: 'The branch of the source repository to sync. By default master.'
-#    default: 'main'
-#  working-directory:
-#    descripion: 'The working working-directory.'
-#    default: ''
 #  result-branch-name:
 #    descripion: 'The name of the branch that will be created on the action done.'
 #    default: sync/${{ github.repository }}
-#  exclude-files:
-#    default: ''
-#    description: 'Space-separated paths of files that should be excluded from sync.'
-#  sync-ignore-file-name:
-#    default: '.syncignore'
-#    description: 'The path to file in the destination repository that contains space-separated paths to files that should be excluded from sync.'
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.dst-owner }} ${{ inputs.dst-repository }} "${{ inputs.files }}"
+    - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.owner }} ${{ inputs.repository }} "${{ inputs.files }}"
       env:
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
         DST_BRANCH: ${{ inputs.dst-branch }}
