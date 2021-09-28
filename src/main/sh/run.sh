@@ -23,21 +23,15 @@ pwd
 
 echo "dry run=$DRY_RUN"
 
-pusher_email=$( jq -r '.pusher.email' "$GITHUB_EVENT_PATH" )
-pusher_name=$( jq -r '.pusher.name' "$GITHUB_EVENT_PATH" )
-jq -r '.head_commit.message' "$GITHUB_EVENT_PATH" > $SCRIPT_PATH/description.txt
-echo >> $SCRIPT_PATH/description.txt
-echo 'Triggered by change in source repo:' >> $SCRIPT_PATH/description.txt
-jq -r '.head_commit.url' "$GITHUB_EVENT_PATH" >> $SCRIPT_PATH/description.txt
-echo 'Powered by insync:' >> $SCRIPT_PATH/description.txt
-echo 'https://github.com/marketplace/actions/in-sync-action' >> $SCRIPT_PATH/description.txt
-
-echo "pusher: $pusher_name $pusher_email"
-
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
 #    "name": "lithium147"
 #  },
+pusher_email=$( jq -r '.pusher.email' "$GITHUB_EVENT_PATH" )
+pusher_name=$( jq -r '.pusher.name' "$GITHUB_EVENT_PATH" )
+echo "pusher: $pusher_name $pusher_email"
+"$SCRIPT_PATH"/build_commit_message.sh "$GITHUB_EVENT_PATH" "$SCRIPT_PATH/description.txt"
+
 #GITHUB_ACTOR=lithium147
 
 # only run on pushes to master (or other specified branch)
