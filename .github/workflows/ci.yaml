@@ -71,6 +71,8 @@ jobs:
             echo .dummyFileForTest was not deleted
             exit 1
           fi
+          git config --add hub.host "github.com"
+          hub pr list -s open -h testDelete
           openPrs=$(hub pr list -s open -h testDelete | wc -l)
           if [ "$openPrs" -eq 0 ]; then
             echo no pr was opened
