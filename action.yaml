@@ -37,7 +37,7 @@ runs:
       env:
         SRC_TOKEN: ${{ github.token }}
         DST_TOKEN: ${{ inputs.token }}
-        GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
+        GITHUB_TOKEN: ${{ inputs.token }} # required to create the PR by hub command line
         DST_BRANCH: ${{ inputs.dst-branch }}
         PR_BRANCH: ${{ inputs.pr-branch }}
         DRY_RUN: ${{ inputs.dry-run }}
