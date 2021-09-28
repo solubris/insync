@@ -16,7 +16,7 @@ inputs:
     required: true
   token:
     description: 'Access token to read/write to the destination repo'
-    default: ${{ secrets.INSYNC_DST_TOKEN }}
+    required: true
   dst-branch:
     description: 'Branch to push to, repo default branch if not specified'
   files:
