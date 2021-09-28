@@ -39,7 +39,6 @@ runs:
         REPOSITORIES: "${{ inputs.repositories }}"
         SRC_TOKEN: ${{ github.token }}
         DST_TOKEN: ${{ inputs.token }}
-        GITHUB_TOKEN: ${{ inputs.token }} # required to create the PR by hub command line
         PR_BRANCH: ${{ inputs.pr-branch }}
         DRY_RUN: ${{ inputs.dry-run }}
       shell: bash

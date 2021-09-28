@@ -12,7 +12,7 @@ REPO="$1"
 TOKEN="$2"
 BRANCH="$3"
 
-# TODO token is not required for source repo, so token could be empty
+# TODO use no-single-branch if branch is specified
 
 if [ "$TOKEN" != "" ]; then
   git clone --depth=1 --no-tags "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
@@ -22,8 +22,7 @@ else
 fi
 
 if [ "$BRANCH" != "" ]; then
-  echo switching to branch $BRANCH
-  # TODO can be part of the clone command
+  echo "switching to branch $BRANCH"
   git checkout "$BRANCH"
 fi
 
