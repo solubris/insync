@@ -19,7 +19,7 @@ files=($*)
 
 echo "syncing ${files[*]} to $repository"
 pwd
-#set
+set
 
 echo "dry run=$DRY_RUN"
 
@@ -48,6 +48,7 @@ ls -la
 # loop through all the destination repositories
 for repository in ${REPOSITORIES[*]}; do
   if [[ ! $repository = */ ]]; then
+    echo "no owner found, using $GITHUB_REPOSITORY_OWNER"
     repository="$GITHUB_REPOSITORY_OWNER/$repository"
   fi
   branch="" # TODO extract from $repository
