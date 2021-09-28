@@ -71,6 +71,7 @@ jobs:
             echo .dummyFileForTest was not deleted
             exit 1
           fi
+          export GITHUB_TOKEN=${{ secrets.INSYNC_DST_TOKEN }}
           git config --add hub.host "github.com"
           hub pr list -s open -h testDelete
           openPrs=$(hub pr list -s open -h testDelete | wc -l)
