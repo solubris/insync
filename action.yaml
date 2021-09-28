@@ -14,12 +14,9 @@ inputs:
   repository:
     description: 'Repository where changes will be pushed to'
     required: true
-  src-token:
-    description: 'Access token to read/write to this repo'
-    default: ${{ github.token }}
-  dst-token:
+  token:
     description: 'Access token to read/write to the destination repo'
-    default: ${{ github.token }}
+    default: ${{ secrets.INSYNC_DST_TOKEN }}
   dst-branch:
     description: 'Branch to push to, repo default branch if not specified'
   files:
