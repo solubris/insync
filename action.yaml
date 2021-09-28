@@ -35,8 +35,8 @@ runs:
   steps:
     - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.owner }} ${{ inputs.repository }} "${{ inputs.files }}"
       env:
-        SRC_TOKEN: ${{ inputs.src-token }}
-        DST_TOKEN: ${{ inputs.dst-token }}
+        SRC_TOKEN: ${{ github.token }}
+        DST_TOKEN: ${{ inputs.token }}
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
         DST_BRANCH: ${{ inputs.dst-branch }}
         PR_BRANCH: ${{ inputs.pr-branch }}
