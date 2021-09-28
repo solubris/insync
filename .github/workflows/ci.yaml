@@ -71,6 +71,11 @@ jobs:
             echo .dummyFileForTest was not deleted
             exit 1
           fi
+          openPrs=$(hub pr list -s open -h testDelete | wc -l)
+          if [ "$openPrs" -eq 0 ]; then
+            echo no pr was opened
+            exit 1
+          fi
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
