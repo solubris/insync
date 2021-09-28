@@ -8,9 +8,9 @@ inputs:
 #    description: 'Email of the committer.'
 #  git-author-name:
 #    description: 'Name of the committer.'
-#  owner:
-#    description: 'Repository owner where changes will be pushed to (defaults to same owner)'
-#    default: ${{ github.repository_owner }}
+  owner:
+    description: 'Repository owner where changes will be pushed to (defaults to same owner)'
+    default: ${{ github.repository_owner }}
   repository:
     description: 'Repository where changes will be pushed to'
     required: true
