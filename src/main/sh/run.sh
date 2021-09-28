@@ -1,36 +1,41 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-
 SCRIPT_PATH=$(dirname "$0")
 
+# env vars
+# provided by github
+# GITHUB_EVENT_PATH: string
+# GITHUB_REPOSITORY_OWNER: string
+#
+# provided by action.yaml
+# DRY_RUN: true|false
+
 #dstOwner="$1"
-dstRepository=$1
-shift
+dst_repository="$1"; shift
 files=($*)
 
-dryRun=$DRY_RUN
 dstToken=$GITHUB_TOKEN
 dstBranch=$DST_BRANCH
 prBranch=${PR_BRANCH:-insync}
 
-echo "syncing ${files[*]} to $dstRepository"
+echo "syncing ${files[*]} to $dst_repository"
 pwd
 #set
 
-echo "dryRun=$dryRun"
+echo "dry run=$DRY_RUN"
 
 # not much useful in here
-pusherEmail=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.email' )
-pusherName=$( cat $GITHUB_EVENT_PATH | jq -r '.pusher.name' )
-cat $GITHUB_EVENT_PATH | jq -r '.head_commit.message' > $SCRIPT_PATH/description.txt
+pusher_email=$( jq -r '.pusher.email' "$GITHUB_EVENT_PATH" )
+pusher_name=$( jq -r '.pusher.name' "$GITHUB_EVENT_PATH" )
+jq -r '.head_commit.message' "$GITHUB_EVENT_PATH" > $SCRIPT_PATH/description.txt
 echo >> $SCRIPT_PATH/description.txt
 echo 'Triggered by change in source repo:' >> $SCRIPT_PATH/description.txt
-cat $GITHUB_EVENT_PATH | jq -r '.head_commit.url' >> $SCRIPT_PATH/description.txt
+jq -r '.head_commit.url' "$GITHUB_EVENT_PATH" >> $SCRIPT_PATH/description.txt
 echo 'Powered by insync:' >> $SCRIPT_PATH/description.txt
 echo 'https://github.com/marketplace/actions/in-sync-action' >> $SCRIPT_PATH/description.txt
 
-echo "pusher: $pusherName $pusherEmail"
+echo "pusher: $pusher_name $pusher_email"
 
 #  "pusher": {
 #    "email": "timlwalters@yahoo.co.uk",
@@ -51,7 +56,7 @@ cd "$SRC_PATH"
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
 cd "$DST_PATH"
-"$SCRIPT_PATH"/git-checkout.sh "$dstRepository" "$dstToken" "$pusherEmail" "$pusherName" "$dstBranch" &
+"$SCRIPT_PATH"/git-checkout.sh "$GITHUB_REPOSITORY_OWNER/$dst_repository" "$dstToken" "$pusher_email" "$pusher_name" "$dstBranch" &
 
 # src and dst checkouts can happen in parallel
 wait
