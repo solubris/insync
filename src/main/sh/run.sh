@@ -21,7 +21,7 @@ prBranch=${PR_BRANCH:-insync}
 
 echo "syncing ${files[*]} to $repository"
 pwd
-#set
+set
 
 echo "dry run=$DRY_RUN"
 
