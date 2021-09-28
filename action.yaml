@@ -14,9 +14,12 @@ inputs:
   repository:
     description: 'Repository where changes will be pushed to'
     required: true
+  src-token:
+    description: 'Access token to read/write to this repo'
+    default: ${{ github.token }}
   dst-token:
-    description: 'Access token to read/write to the repo'
-    required: true
+    description: 'Access token to read/write to the destination repo'
+    default: ${{ github.token }}
   dst-branch:
     description: 'Branch to push to, repo default branch if not specified'
   files:
@@ -26,7 +29,7 @@ inputs:
     description: 'Branch to make the changes in, insync if not specified'
   dry-run:
     description: "Set true to run the job without pushing."
-    default: 'false'
+    default: false
 #  result-branch-name:
 #    descripion: 'The name of the branch that will be created on the action done.'
 #    default: sync/${{ github.repository }}
@@ -35,6 +38,8 @@ runs:
   steps:
     - run: ${{ github.action_path }}/src/main/sh/run.sh ${{ inputs.owner }} ${{ inputs.repository }} "${{ inputs.files }}"
       env:
+        SRC_TOKEN: ${{ inputs.src-token }}
+        DST_TOKEN: ${{ inputs.dst-token }}
         GITHUB_TOKEN: ${{ inputs.dst-token }} # required to create the PR by hub command line
         DST_BRANCH: ${{ inputs.dst-branch }}
         PR_BRANCH: ${{ inputs.pr-branch }}
