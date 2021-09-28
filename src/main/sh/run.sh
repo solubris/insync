@@ -47,12 +47,14 @@ ls -la
 
 # loop through all the destination repositories
 for repository in ${REPOSITORIES[*]}; do
-  owner="$GITHUB_REPOSITORY_OWNER"  # TODO extract from $repository
+  if [[ ! $repository = */ ]]; then
+    repository="$GITHUB_REPOSITORY_OWNER/$repository"
+  fi
   branch="" # TODO extract from $repository
 
   DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
   cd "$DST_PATH"
-  "$SCRIPT_PATH"/git-checkout.sh "$owner/$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
+  "$SCRIPT_PATH"/git-checkout.sh "$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
   ls -la
 
   if [ -n "$PR_BRANCH" ]; then
