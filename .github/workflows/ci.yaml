@@ -15,7 +15,6 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
           pr-branch: testUpdate
       - name: remove the branch created during test
@@ -33,7 +32,6 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .editorconfig
           pr-branch: testCopy
       - name: check the files exist in the dst repo
@@ -58,7 +56,6 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .dummyFileForTest
           pr-branch: testDelete
       - name: check the file does not exist in the dst repo
@@ -86,14 +83,12 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
           pr-branch: testUpdateWithExistingBranch
       - name: sync
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore .dummyFileForTest
           pr-branch: testUpdateWithExistingBranch
       - name: remove the branch created during test
@@ -111,7 +106,6 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: src
           pr-branch: testUpdateDir
       - name: remove the branch created during test
@@ -129,7 +123,6 @@ jobs:
         uses: ./
         with:
           repository: 'insync-dst'
-          dst-token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: src/main/sh/run.sh
           pr-branch: testCopyWithSubdir
       - name: check the files exist in the dst repo
