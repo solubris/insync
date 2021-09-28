@@ -9,13 +9,13 @@ SCRIPT_PATH=$(dirname "$0")
 #
 # provided by action.yaml
 # DRY_RUN: true|false
+# DST_BRANCH: optional string
 
 owner="$1"; shift
 repository="$1"; shift
 files=($*)
 
 dstToken=$GITHUB_TOKEN
-dstBranch=$DST_BRANCH
 prBranch=${PR_BRANCH:-insync}
 
 echo "syncing ${files[*]} to $repository"
@@ -50,12 +50,12 @@ echo "pusher: $pusher_name $pusher_email"
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$dstToken" &
+"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "" &
 
 # check out dst project to tmp dir
 DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
 cd "$DST_PATH"
-"$SCRIPT_PATH"/git-checkout.sh "$owner/$repository" "$dstToken" "$pusher_email" "$pusher_name" "$dstBranch" &
+"$SCRIPT_PATH"/git-checkout.sh "$owner/$repository" "$dstToken" "$pusher_email" "$pusher_name" "$DST_BRANCH" &
 
 # src and dst checkouts can happen in parallel
 wait

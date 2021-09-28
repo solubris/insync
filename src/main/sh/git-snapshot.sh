@@ -14,7 +14,12 @@ BRANCH="$3"
 
 # TODO token is not required for source repo, so token could be empty
 
-git clone --depth=1 --no-tags "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
+if [ "$TOKEN" != "" ]; then
+  git clone --depth=1 --no-tags "https://$TOKEN:x-oauth-basic@github.com/$REPO.git" .
+else
+  echo cloning without token
+  git clone --depth=1 --no-tags "https://github.com/$REPO.git" .
+fi
 
 if [ "$BRANCH" != "" ]; then
   echo switching to branch $BRANCH
