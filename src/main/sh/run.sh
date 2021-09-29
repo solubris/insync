@@ -47,12 +47,12 @@ ls -la
 
 # loop through all the destination repositories
 for repository in ${REPOSITORIES[*]}; do
-  if [[ ! $repository = */ ]]; then
+  if [[ ! $repository = */* ]]; then
     echo "no owner found, using $GITHUB_REPOSITORY_OWNER"
     repository="$GITHUB_REPOSITORY_OWNER/$repository"
   fi
   branch=""
-  if [[ $repository = @* ]]; then
+  if [[ $repository = *@* ]]; then
     branch="${repository#*@}"
     repository="${repository%@*}"
     echo "branch found: $branch"
