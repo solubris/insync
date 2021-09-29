@@ -15,9 +15,7 @@ inputs:
     description: 'Repositories where changes will be pushed to'
     required: true
   token:
-    description: |
-      Access token to read/write to the destination repo.
-      NOTE: same token is used to access all the repositories.
+    description: 'Access token to read/write to the destination repo. NOTE: same token is used to access all repos.'
     required: true
   files:
     description: 'Files to keep in sync, may be new line delimited'
