@@ -20,14 +20,13 @@ jobs:
           pr-branch: testWithOwnerAndBranch
       - name: setup env
         run: |
-          echo "::set-output name=D_PATH::$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          echo "::set-output name=DST_PATH::$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "${{ steps.env.outputs.DST_PATH }}"
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
         id: env
       - name: remove the branch created during test
         run: |
-          echo "the D_PATH=${{ steps.env.outputs.D_PATH }}"
-          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
-          cd "$DST_PATH"
-          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
+          cd "${{ steps.env.outputs.DST_PATH }}"
           git push -d origin testWithOwnerAndBranch
   testUpdate:  # will create a pr to update existing file
     runs-on: ubuntu-latest
