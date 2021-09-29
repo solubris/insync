@@ -42,10 +42,8 @@ echo "pusher: $pusher_name $pusher_email"
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$GITHUB_TOKEN"
+"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
 ls -la
-
-export GITHUB_TOKEN=$DST_TOKEN # required to create the PR by hub command line
 
 # loop through all the destination repositories
 for repository in ${REPOSITORIES[*]}; do
