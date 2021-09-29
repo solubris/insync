@@ -21,9 +21,11 @@ jobs:
       - name: setup env
         run: |
           echo "::set-output name=DST_PATH::$(mktemp -d /tmp/insync-dst.XXXXXX)"
+        id: env
+      - name: checkout the dst repo
+        run: |
           cd "${{ steps.env.outputs.DST_PATH }}"
           git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
-        id: env
       - name: remove the branch created during test
         run: |
           cd "${{ steps.env.outputs.DST_PATH }}"
