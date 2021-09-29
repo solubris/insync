@@ -6,6 +6,24 @@ on:
     branches: [master]
 
 jobs:
+  testWithOwnerAndBranch:  # will create a pr to update existing file
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare
+        uses: actions/checkout@v2
+      - name: sync
+        uses: ./
+        with:
+          repositories: 'solubris/insync-dst@master'
+          token: ${{ secrets.INSYNC_DST_TOKEN }}
+          files: .gitignore
+          pr-branch: testWithOwnerAndBranch
+      - name: remove the branch created during test
+        run: |
+          DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+          cd "$DST_PATH"
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
+          git push -d origin testWithOwnerAndBranch
   testUpdate:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +40,7 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testUpdate
   testCopy:  # will create a pr to copy over a new file
     runs-on: ubuntu-latest
@@ -40,14 +58,14 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git checkout testCopy
           ls .editorconfig
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testCopy
   testDelete:  # will create a pr to delete file from dst
     runs-on: ubuntu-latest
@@ -65,7 +83,7 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git checkout testDelete
           if [ -e .dummyFileForTest ]; then
             echo .dummyFileForTest was not deleted
@@ -81,7 +99,7 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testDelete
   testUpdateWithExistingBranch:  # will update existing branch/pr
     runs-on: ubuntu-latest
@@ -106,7 +124,7 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testUpdateWithExistingBranch
   testUpdateDir:  # will create a pr to update existing file
     runs-on: ubuntu-latest
@@ -124,7 +142,7 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testUpdateDir
   testCopyWithSubdir:  # will create a pr to copy over a new file and creating the subdir's
     runs-on: ubuntu-latest
@@ -142,12 +160,12 @@ jobs:
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git checkout testCopyWithSubdir
           ls src/main/sh/run.sh
       - name: remove the branch created during test
         run: |
           DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
           cd "$DST_PATH"
-          git clone "https://${{ secrets.INSYNC_DST_TOKEN }}:x-oauth-basic@github.com/solubris/insync-dst.git" .
+          git clone "https://none:${{ secrets.INSYNC_DST_TOKEN }}@github.com/solubris/insync-dst.git" .
           git push -d origin testCopyWithSubdir

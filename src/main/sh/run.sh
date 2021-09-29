@@ -51,7 +51,13 @@ for repository in ${REPOSITORIES[*]}; do
     echo "no owner found, using $GITHUB_REPOSITORY_OWNER"
     repository="$GITHUB_REPOSITORY_OWNER/$repository"
   fi
-  branch="" # TODO extract from $repository
+  branch=""
+  if [[ $repository = @* ]]; then
+    branch="${repository#*@}"
+    repository="${repository%@*}"
+    echo "branch found: $branch"
+    echo "new repository: $repository"
+  fi
 
   DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
   cd "$DST_PATH"
