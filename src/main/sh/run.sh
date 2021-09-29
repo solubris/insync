@@ -17,7 +17,7 @@ SCRIPT_PATH=$(dirname "$0")
 
 files=($*)
 
-echo "syncing ${files[*]} to $repository"
+echo "syncing ${files[*]} to $REPOSITORIES"
 pwd
 set
 
@@ -40,8 +40,8 @@ echo "pusher: $pusher_name $pusher_email"
 #GITHUB_REPOSITORY=solubris/insync-src
 #GITHUB_REPOSITORY_OWNER=solubris
 
-SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
-cd "$SRC_PATH"
+src_path="$(mktemp -d /tmp/insync-src.XXXXXX)"
+cd "$src_path"
 "$SCRIPT_PATH"/git/snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
 ls -la
 
@@ -50,8 +50,9 @@ for repository in ${REPOSITORIES[*]}; do
   if [[ ! $repository = */* ]]; then
     echo "no owner found, using $GITHUB_REPOSITORY_OWNER"
     repository="$GITHUB_REPOSITORY_OWNER/$repository"
+    echo "new repository: $repository"
   fi
-  branch=""
+  branch=''
   if [[ $repository = *@* ]]; then
     branch="${repository#*@}"
     repository="${repository%@*}"
@@ -59,8 +60,8 @@ for repository in ${REPOSITORIES[*]}; do
     echo "new repository: $repository"
   fi
 
-  DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
-  cd "$DST_PATH"
+  dst_path="$(mktemp -d /tmp/insync-dst.XXXXXX)"
+  cd "$dst_path"
   "$SCRIPT_PATH"/git/checkout.sh "$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
   ls -la
 
@@ -70,9 +71,9 @@ for repository in ${REPOSITORIES[*]}; do
     git checkout "$PR_BRANCH" || git checkout -b "$PR_BRANCH"
   fi
 
-  "$SCRIPT_PATH"/sync-from.sh "$SRC_PATH" ${files[*]}
+  "$SCRIPT_PATH"/sync_from.sh "$src_path" ${files[*]}
 
-  localChanges=$($SCRIPT_PATH/has-local-changes.sh)
+  localChanges=$($SCRIPT_PATH/git/has_local_changes.sh)
   if [ $localChanges -ne 0 ]; then
     echo 'found changes, pushing'
     $SCRIPT_PATH/git/push.sh "$PR_BRANCH" "$PR_BRANCH" $SCRIPT_PATH/description.txt
