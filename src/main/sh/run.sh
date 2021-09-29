@@ -72,6 +72,7 @@ for repository in ${REPOSITORIES[*]}; do
   fi
 
   "$SCRIPT_PATH"/sync_from.sh "$src_path" ${files[*]}
+  git add .
 
   localChanges=$($SCRIPT_PATH/git/has_local_changes.sh)
   if [ $localChanges -ne 0 ]; then

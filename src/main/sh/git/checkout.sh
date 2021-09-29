@@ -5,24 +5,24 @@ set -eo pipefail
 # TODO use this var: GITHUB_SERVER_URL
 #GITHUB_SERVER_URL=https://github.com
 
-REPO="$1"
-TOKEN="$2"
-EMAIL="$3"
-NAME="$4"
-BRANCH="$5"
+repo="$1"
+token="$2"
+email="$3"
+name="$4"
+branch="$5"
 
-git clone --depth=1 --no-single-branch --no-tags "https://none:$TOKEN@github.com/$REPO.git" .
+git clone --depth=1 --no-single-branch --no-tags "https://none:$token@github.com/$repo.git" .
 
-if [ -n "$BRANCH" ]; then
+if [ -n "$branch" ]; then
   # can't be done as part of clone command
-  echo switching to branch $BRANCH
-  git checkout "$BRANCH"
+  echo switching to branch $branch
+  git checkout "$branch"
 fi
-if [ -n "$EMAIL" ]; then
-  git config user.email "$EMAIL"
+if [ -n "$email" ]; then
+  git config user.email "$email"
 fi
-if [ -n "$NAME" ]; then
-  git config user.name "$NAME"
+if [ -n "$name" ]; then
+  git config user.name "$name"
 fi
 
 # only required for github enterprise

@@ -8,15 +8,15 @@ set -eo pipefail
 # TODO use this var: GITHUB_SERVER_URL
 #GITHUB_SERVER_URL=https://github.com
 
-REPO="$1"
-TOKEN="$2"
-BRANCH="$3"
+repo="$1"
+token="$2"
+branch="$3"
 
-git clone --depth=1 --no-single-branch --no-tags "https://none:$TOKEN@github.com/$REPO.git" .
+git clone --depth=1 --no-single-branch --no-tags "https://none:$token@github.com/$repo.git" .
 
-if [ -n "$BRANCH" ]; then
-  echo "switching to branch $BRANCH"
-  git checkout "$BRANCH"
+if [ -n "$branch" ]; then
+  echo "switching to branch $branch"
+  git checkout "$branch"
 fi
 
 rm -rf .git

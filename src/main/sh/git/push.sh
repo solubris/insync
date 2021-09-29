@@ -4,19 +4,11 @@ branch_name=$1
 commit_title="$2"
 commit_message_file="$3"
 
-git update-index --refresh
-git diff-index --quiet HEAD --
-changed=$?
-if [ $changed -eq 0 ]; then
-  echo no changes
-  exit
-fi
-
 commit_message=$(cat $commit_message_file)
 
 echo "creating branch and pushing to origin"
 #git checkout -b $branch_name
-git add .
+#git add .
 git commit -m "$commit_title" -m "$commit_message"
 
 if [ "$DRY_RUN" == "true" ]; then

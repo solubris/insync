@@ -2,11 +2,11 @@
 # requires env var: GITHUB_TOKEN
 
 title="$1"
-messageFile="$2"
+message_file="$2"
 
 # bullet formatting for pr description
-#message=$(sed 's/^/* /' $messageFile)
-message=$(sed 's/^//' $messageFile)
+#message=$(sed 's/^/* /' $message_file)
+message=$(sed 's/^//' $message_file)
 
 # each -m means a new line will be added
 hub pull-request -m $title -m '' -m "$message" || true

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-BRANCH_NAME=$1
+branch=$1
 
-git ls-remote --heads origin "$BRANCH_NAME" | wc -l
+git ls-remote --heads origin "$branch" | wc -l
