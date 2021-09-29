@@ -15,7 +15,8 @@ BRANCH="$3"
 # TODO use no-single-branch if branch is specified
 
 if [ "$TOKEN" != "" ]; then
-  git clone --depth=1 --no-tags "https://$TOKEN@github.com/$REPO.git" .
+  echo x-oauth-basic
+  git clone --depth=1 --no-tags "https://x-oauth-basic:$TOKEN@github.com/$REPO.git" .
 else
   echo cloning without token
   git clone --depth=1 --no-tags "https://github.com/$REPO.git" .
