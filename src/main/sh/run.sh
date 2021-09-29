@@ -42,7 +42,7 @@ echo "pusher: $pusher_name $pusher_email"
 
 SRC_PATH="$(mktemp -d /tmp/insync-src.XXXXXX)"
 cd "$SRC_PATH"
-"$SCRIPT_PATH"/git-snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
+"$SCRIPT_PATH"/git/snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
 ls -la
 
 # loop through all the destination repositories
@@ -55,7 +55,7 @@ for repository in ${REPOSITORIES[*]}; do
 
   DST_PATH="$(mktemp -d /tmp/insync-dst.XXXXXX)"
   cd "$DST_PATH"
-  "$SCRIPT_PATH"/git-checkout.sh "$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
+  "$SCRIPT_PATH"/git/checkout.sh "$repository" "$DST_TOKEN" "$pusher_email" "$pusher_name" "$branch"
   ls -la
 
   if [ -n "$PR_BRANCH" ]; then
@@ -69,8 +69,8 @@ for repository in ${REPOSITORIES[*]}; do
   localChanges=$($SCRIPT_PATH/has-local-changes.sh)
   if [ $localChanges -ne 0 ]; then
     echo 'found changes, pushing'
-    $SCRIPT_PATH/push-to-git.sh "$PR_BRANCH" "$PR_BRANCH" $SCRIPT_PATH/description.txt
-    $SCRIPT_PATH/hub-create-pr.sh "$PR_BRANCH" $SCRIPT_PATH/description.txt
+    $SCRIPT_PATH/git/push.sh "$PR_BRANCH" "$PR_BRANCH" $SCRIPT_PATH/description.txt
+    $SCRIPT_PATH/hub/create_pr.sh "$PR_BRANCH" $SCRIPT_PATH/description.txt
   else
     echo 'no changes made, will not do anything'
   fi

@@ -11,21 +11,19 @@ EMAIL="$3"
 NAME="$4"
 BRANCH="$5"
 
-# TODO token is not required for source repo, so token could be empty
-
 git clone --depth=1 --no-single-branch --no-tags "https://none:$TOKEN@github.com/$REPO.git" .
 
-if [ "$NAME" != "" ]; then
-  git config user.name "$NAME"
-fi
-if [ "$EMAIL" != "" ]; then
-  git config user.email "$EMAIL"
-fi
-
-git config --add hub.host "github.com"
-
-if [ "$BRANCH" != "" ]; then
+if [ -n "$BRANCH" ]; then
   # can't be done as part of clone command
   echo switching to branch $BRANCH
   git checkout "$BRANCH"
 fi
+if [ -n "$EMAIL" ]; then
+  git config user.email "$EMAIL"
+fi
+if [ -n "$NAME" ]; then
+  git config user.name "$NAME"
+fi
+
+# only required for github enterprise
+#git config --add hub.host "github.com"

@@ -12,16 +12,9 @@ REPO="$1"
 TOKEN="$2"
 BRANCH="$3"
 
-# TODO use no-single-branch if branch is specified
+git clone --depth=1 --no-single-branch --no-tags "https://none:$TOKEN@github.com/$REPO.git" .
 
-if [ "$TOKEN" != "" ]; then
-  git clone --depth=1 --no-tags "https://none:$TOKEN@github.com/$REPO.git" .
-else
-  echo cloning without token
-  git clone --depth=1 --no-tags "https://github.com/$REPO.git" .
-fi
-
-if [ "$BRANCH" != "" ]; then
+if [ -n "$BRANCH" ]; then
   echo "switching to branch $BRANCH"
   git checkout "$BRANCH"
 fi

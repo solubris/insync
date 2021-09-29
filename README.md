@@ -47,6 +47,9 @@ Alternatively, the secret could be saved at the organisation level
 - collating changes - multiple changes can be collated to an existing branch - done
   - what about the pr description, should subsequent changes update the pr description?
     - could add a comment to the pr
+  - existing branch might be out of date with head branch
+    - could merge from head
+    - could delete and recreate
 - allow push to master - so no pr required
 - allow auto merge pr's
 - templates - perform replacement on templated files
