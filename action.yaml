@@ -35,7 +35,6 @@ runs:
     - run: ${{ github.action_path }}/src/main/sh/run.sh "${{ inputs.files }}"
       env:
         REPOSITORIES: "${{ inputs.repositories }}"
-        SRC_TOKEN: ${{ GITHUB_TOKEN }}
         DST_TOKEN: ${{ inputs.token }}
         PR_BRANCH: ${{ inputs.pr-branch }}
         DRY_RUN: ${{ inputs.dry-run }}
