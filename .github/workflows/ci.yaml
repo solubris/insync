@@ -8,6 +8,8 @@ on:
 jobs:
   testWithOwnerAndBranch:  # will create a pr to update existing file
     runs-on: ubuntu-latest
+    env:
+      branch: testWithOwnerAndBranch
     steps:
       - name: prepare
         uses: actions/checkout@v2
@@ -17,7 +19,7 @@ jobs:
           repositories: 'solubris/insync-dst@master'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
           files: .gitignore
-          pr-branch: testWithOwnerAndBranch
+          pr-branch: ${{ env.branch }}
       - name: setup env
         run: |
           echo "::set-output name=DST_PATH::$(mktemp -d /tmp/insync-dst.XXXXXX)"
@@ -29,7 +31,7 @@ jobs:
       - name: remove the branch created during test
         run: |
           cd "${{ steps.env.outputs.DST_PATH }}"
-          git push -d origin testWithOwnerAndBranch
+          git push -d origin ${{ env.branch }}
   testUpdate:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
