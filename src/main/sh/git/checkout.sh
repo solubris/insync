@@ -13,7 +13,7 @@ branch="$5"
 
 if [ -z $token ]; then
   echo no token
-  git clone --depth=1 --no-single-branch --no-tags "https://@github.com/$repo.git" .
+  git clone --depth=1 --no-single-branch --no-tags "https://github.com/$repo.git" .
 else
   git clone --depth=1 --no-single-branch --no-tags "https://none:$token@github.com/$repo.git" .
 fi
