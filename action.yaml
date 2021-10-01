@@ -33,6 +33,7 @@ runs:
   steps:
     # two phases: fetch, sync
     - uses: actions/checkout@v2
+    - run: pwd; ls -al
     - run: ${{ github.action_path }}/src/main/sh/run.sh "${{ inputs.files }}"
       env:
         REPOSITORIES: "${{ inputs.repositories }}"
