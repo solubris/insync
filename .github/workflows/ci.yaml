@@ -1,18 +1,11 @@
 name: ci
-on:
-  pull_request:
-    branches: [master]
-  push:
-    branches: [master]
-env:
-  AAA_BBB: CCC
+on: [push]
 
 jobs:
   testWithOwnerAndBranch:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
