@@ -50,7 +50,15 @@ Alternatively, the secret could be saved at the organisation level
   - existing branch might be out of date with head branch
     - could merge from head
     - could delete and recreate
-- allow push to master - so no pr required
+      - dependabot recreates the branch
+      - only recreate the branch is pr-branch has been specified
+        - what if pr-branch=master?
+        - if the branch was created by insync, then should be safe to recreate
+        - but how to know if it was created by insync?
+        - perhaps don't allow the pr-branch to be set
+          - but pr-branch is useful tests
+          - could make it an env instead of input so it's a hidden var
+- allow push to master, so no pr required - works by setting pr-branch=''
 - allow auto merge pr's
 - templates - perform replacement on templated files
 - allow for different dest paths:

@@ -4,6 +4,8 @@ on:
     branches: [master]
   push:
     branches: [master]
+env:
+  AAA_BBB: CCC
 
 jobs:
   testWithOwnerAndBranch:  # will create a pr to update existing file

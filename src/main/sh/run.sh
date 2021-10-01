@@ -74,8 +74,8 @@ for repository in ${REPOSITORIES[*]}; do
   "$SCRIPT_PATH"/sync_from.sh "$src_path" ${files[*]}
   git add .
 
-  localChanges=$($SCRIPT_PATH/git/has_local_changes.sh)
-  if [ $localChanges -ne 0 ]; then
+  local_changes=$($SCRIPT_PATH/git/has_local_changes.sh)
+  if [ $local_changes -ne 0 ]; then
     echo 'found changes, pushing'
     $SCRIPT_PATH/git/push.sh "$PR_BRANCH" "$PR_BRANCH" $SCRIPT_PATH/description.txt
     $SCRIPT_PATH/hub/create_pr.sh "$PR_BRANCH" $SCRIPT_PATH/description.txt

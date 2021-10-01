@@ -15,7 +15,7 @@ git clone --depth=1 --no-single-branch --no-tags "https://none:$token@github.com
 
 if [ -n "$branch" ]; then
   # can't be done as part of clone command
-  echo switching to branch $branch
+  echo "switching to branch $branch"
   git checkout "$branch"
 fi
 if [ -n "$email" ]; then

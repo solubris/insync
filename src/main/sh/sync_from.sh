@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-src_path="$1"; shift
+from="$1"; shift
 files=($*)
 
 for f in ${files[*]}; do
@@ -10,13 +10,13 @@ for f in ${files[*]}; do
   echo "removing entry from dst: $f"
   rm -rf "$f"
 
-  if [ -e "$src_path/$f" ]; then
+  if [ -e "$from/$f" ]; then
     echo "copying entry to dst: $f"
     if [[ $f = */* ]]; then
       fPath="${f%/*}"
       echo "creating path: $fPath"
       mkdir -p "$fPath"
     fi
-    cp -r "$src_path/$f" "$f"
+    cp -r "$from/$f" "$f"
   fi
 done
