@@ -25,12 +25,14 @@ inputs:
   dry-run:
     description: "Set true to run the job without pushing."
     default: false
-#  result-branch-name:
-#    descripion: 'The name of the branch that will be created on the action done.'
-#    default: sync/${{ github.repository }}
+  rebase-strategy:
+    description: "Disable automatic rebasing - auto|disabled"
+    default: auto
 runs:
   using: "composite"
   steps:
+    # two phases: fetch, sync
+    - uses: actions/checkout@v2
     - run: ${{ github.action_path }}/src/main/sh/run.sh "${{ inputs.files }}"
       env:
         REPOSITORIES: "${{ inputs.repositories }}"
