@@ -123,3 +123,19 @@ paths can be used in the job definition:
         paths:
           - '**.js'
 
+# Internal vs external actions
+
+current dir:
+/home/runner/work/insync-src/insync-src
+
+this will be empty for run an external action, but will be the contents of the repo for internal action
+
+External action
+GITHUB_ACTION=sync
+GITHUB_ACTION_PATH=/home/runner/work/_actions/solubris/insync/master
+
+Internal action:
+GITHUB_ACTION=__self
+GITHUB_ACTION_PATH=/home/runner/work/insync/insync/./
+
+
