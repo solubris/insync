@@ -6,8 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: sync
-        uses: ./
+      - uses: ./
         with:
           repositories: 'solubris/insync-dst@master'
           token: ${{ secrets.INSYNC_DST_TOKEN }}
@@ -28,8 +27,7 @@ jobs:
   testUpdate:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
@@ -46,8 +44,7 @@ jobs:
   testCopy:  # will create a pr to copy over a new file
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
@@ -71,8 +68,7 @@ jobs:
   testDelete:  # will create a pr to delete file from dst
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
@@ -105,8 +101,7 @@ jobs:
   testUpdateWithExistingBranch:  # will update existing branch/pr
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
@@ -130,8 +125,7 @@ jobs:
   testUpdateDir:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
@@ -148,8 +142,7 @@ jobs:
   testCopyWithSubdir:  # will create a pr to copy over a new file and creating the subdir's
     runs-on: ubuntu-latest
     steps:
-      - name: prepare
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:
