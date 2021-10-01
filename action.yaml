@@ -32,8 +32,6 @@ runs:
   using: "composite"
   steps:
     # two phases: fetch, sync
-    - uses: actions/checkout@v2
-      if: sdssdsfd
     - run: pwd; ls -al
       shell: bash
     - run: ${{ github.action_path }}/src/main/sh/run.sh "${{ inputs.files }}"
