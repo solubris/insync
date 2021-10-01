@@ -127,8 +127,8 @@ paths can be used in the job definition:
 
 current dir:
 /home/runner/work/insync-src/insync-src
-
-this will be empty for run an external action, but will be the contents of the repo for internal action
+this will be empty, for internal action, it needs to be checked out before running the action
+which means the sync doesn't need to check it out again
 
 External action
 GITHUB_ACTION=sync

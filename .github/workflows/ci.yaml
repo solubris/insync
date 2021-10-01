@@ -5,6 +5,7 @@ jobs:
   testWithOwnerAndBranch:  # will create a pr to update existing file
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: sync
         uses: ./
         with:

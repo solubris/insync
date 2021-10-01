@@ -40,10 +40,12 @@ echo "pusher: $pusher_name $pusher_email"
 #GITHUB_REPOSITORY=solubris/insync-src
 #GITHUB_REPOSITORY_OWNER=solubris
 
-src_path="$(mktemp -d /tmp/insync-src.XXXXXX)"
-cd "$src_path"
-"$SCRIPT_PATH"/git/snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
-ls -la
+#src_path="$(mktemp -d /tmp/insync-src.XXXXXX)"
+#cd "$src_path"
+#"$SCRIPT_PATH"/git/snapshot.sh "$GITHUB_REPOSITORY" "$SRC_TOKEN"
+#ls -la
+
+src_path="$(pwd)"
 
 # loop through all the destination repositories
 for repository in ${REPOSITORIES[*]}; do
