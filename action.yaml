@@ -32,7 +32,7 @@ runs:
   using: "composite"
   steps:
     # two phases: fetch, sync
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         clean: false
         persist-credentials: false
